@@ -21,7 +21,6 @@ let app = new Vue({
             if (this.bookName == " ") {
                 return;
             } else {
-                this.bookHeader = this.bookName; //sets book header to original query
                 //Changes input to acceptable form to be searched
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
@@ -48,6 +47,7 @@ let app = new Vue({
         }, // end search
 
         setContents() {
+            this.bookHeader = this.contents.title; //sets book header to actual title of book
             this.bookAuthor = this.contents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
             this.bookISBN = this.contents.isbn[0]; //sets isbn of book
             this.bookImgLink += this.bookISBN;
