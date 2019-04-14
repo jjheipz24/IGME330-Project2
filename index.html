@@ -30,8 +30,8 @@
         </b-row>
 
         <b-row class="searchArea" align-h="left">
-            <b-form-input id="searchbar" placeholder="Enter book title here..."></b-form-input>
-            <b-button variant="primary" id="search">Search</b-button>
+            <b-form-input id="searchbar" placeholder="Enter book title here..." v-model.trim="bookName"></b-form-input>
+            <b-button variant="primary" id="search" @click="search">Search</b-button>
         </b-row>
 
         <!--CONSIDER REPLACING WITH ES6 CLASS OR TEMPLATE-->
@@ -40,7 +40,7 @@
 
             <b-col id="book">
 
-                <book-info v-bind:title="result.q" v-bind:author="result.a" v-bind:descrip="result.a"></book-info>
+                <book-info v-bind:title="bookHeader" v-bind:author="bookAuthor" v-bind:descrip="bookDescrip" v-bind:imgLink="bookPic"></book-info>
 
             </b-col>
 
