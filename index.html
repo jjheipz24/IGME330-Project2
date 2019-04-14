@@ -24,7 +24,7 @@
     <b-container fluid id="root">
         <b-row>
             <header>
-                <h1>We need a good name</h1>
+                <h1>bookWatch</h1>
                 <p>input the title of a book to receive movie recommendations</p>
             </header>
         </b-row>
@@ -39,10 +39,15 @@
         <b-row>
 
             <b-col id="book">
+                <div v-bind:style="styleLoad" id="loading" class="text-center">
+                    <b-spinner variant="primary" style="width: 5rem; height: 5rem;" type="grow" label="Spinning"></b-spinner>
+                </div>
 
-                <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
-                <book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
-                <!--<p>{{contents.author_name}}</p>-->
+                <div id="bookHTML" v-bind:style="styleInfo">
+                    <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
+                    <book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
+                    <!--<p>{{contents.author_name}}</p>-->
+                </div>
 
             </b-col>
 

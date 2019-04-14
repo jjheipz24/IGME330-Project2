@@ -5,15 +5,23 @@ let app = new Vue({
         contents: {
 
         },
+        
         bookName: " ",
         bookHeader: " ",
         bookAuthor: " ",
-        bookDescrip: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        bookDescrip: " ",
         bookImgLink: "http://covers.openlibrary.org/b/isbn/",
         bookISBN: "",
         bookPic: " ", //we should probably add a placeholder image that will be shown in the final product
         subjects: [],
-        numResults: ""
+        numResults: "",
+
+        styleLoad: {
+            display: 'none'
+        },
+        styleInfo: {
+            display: 'none'
+        }
     },
     methods: {
         search() {
@@ -23,6 +31,8 @@ let app = new Vue({
             } else {
                 //---------ADD LOADING IMAGE HERE-------
                 //------------I'D SOMEHOW FIND A WAY TO SET IT EQUAL TO THE BOOKPIC VARIABLE SO THAT IT DISAPPEARS WHEN IT GETS OVERRIDDEN BY THE ACTUAL BOOKPIC---------
+                this.styleInfo.display = "none";
+                this.styleLoad.display = "block";
 
                 //Changes input to acceptable form to be searched
                 this.bookName = this.bookName.toLowerCase();
@@ -46,6 +56,22 @@ let app = new Vue({
                         this.contents = json; //sets contents to docs array in JSON file
                         this.setContents();
                     })
+
+                    //dont worry about this rn
+                // let isbnLink = `ISBN:${this.bookISBN}`
+                // fetch(`https://openlibrary.org/api/books?bibkeys=${isbnLink}&jscmd=details&format=json`)
+                //     .then(response => {
+                //         if (!response.ok) {
+                //             throw Error(`ERROR: ${response.statusText}`);
+
+                //         }
+                //         return response.json();
+                //     })
+                //     .then(json => {
+                //         console.log(json);
+                        
+                //     })
+                
             }
         }, // end search
 
@@ -55,11 +81,14 @@ let app = new Vue({
             this.bookISBN = this.contents.isbn[0]; //sets isbn of book
             this.bookImgLink += this.bookISBN;
             this.bookImgLink += `-M.jpg`;
+            this.bookDescrip = '';
             this.bookPic = this.bookImgLink;
             this.subjects = this.contents.subject;
             console.log(this.subjects);
 
-        }
+            this.styleLoad.display = 'none';
+            this.styleInfo.display = 'block';
+        },
 
     } // end methods
 

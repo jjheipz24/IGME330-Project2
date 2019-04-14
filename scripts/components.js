@@ -10,6 +10,19 @@ Vue.component('book-info', {
     props: ['author', 'descrip'],
     template: `<div class="info">
         <h3>{{author}}</h3>
-        <p>{{descrip}}</p>
         </div>`
+});
+
+Vue.component('movie-info', {
+    props: ['movieimg', 'title', 'rating', 'descrip'],
+    template: `<b-row class="movieSug">
+        <b-col cols="2" class="text-center">
+            <img v-bind:src="movieimg" alt="movie poster" class="movieIMG rounded">
+        </b-col>
+        <b-col class="text-left">
+            <h2>{{title}}</h2>
+            <p>{{rating}}</p>
+            <p>{{descrip}}</p>
+        </b-col>
+        </b-row>`
 });
