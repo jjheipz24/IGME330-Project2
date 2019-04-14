@@ -40,11 +40,9 @@
 
             <b-col id="book">
 
-                <!--
-<book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
-<book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
--->
-                <p>{{list.author_name}}</p>
+                <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
+                <book-info v-bind:author="{{contents.author_name}}" v-bind:descrip="bookDescrip"></book-info>
+                <!--<p>{{contents.author_name}}</p>-->
 
             </b-col>
 
