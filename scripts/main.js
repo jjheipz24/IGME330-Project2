@@ -11,16 +11,19 @@ let app = new Vue({
         bookDescrip: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
         bookImgLink: "http://covers.openlibrary.org/b/isbn/",
         bookISBN: "",
-        bookPic: "../bookpic.jpg",
+        bookPic: " ", //we should probably add a placeholder image that will be shown in the final product
+        subjects: [],
         numResults: ""
     },
     methods: {
         search() {
-
             //Won't search if nothing added in search bar
             if (this.bookName == " ") {
                 return;
             } else {
+                //---------ADD LOADING IMAGE HERE-------
+                //------------I'D SOMEHOW FIND A WAY TO SET IT EQUAL TO THE BOOKPIC VARIABLE SO THAT IT DISAPPEARS WHEN IT GETS OVERRIDDEN BY THE ACTUAL BOOKPIC---------
+
                 //Changes input to acceptable form to be searched
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
@@ -53,6 +56,8 @@ let app = new Vue({
             this.bookImgLink += this.bookISBN;
             this.bookImgLink += `-M.jpg`;
             this.bookPic = this.bookImgLink;
+            this.subjects = this.contents.subject;
+            console.log(this.subjects);
 
         }
 
