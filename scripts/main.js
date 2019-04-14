@@ -5,7 +5,6 @@ let app = new Vue({
         contents: {
 
         },
-        
         bookName: " ",
         bookHeader: " ",
         bookAuthor: " ",
@@ -55,22 +54,12 @@ let app = new Vue({
                         json = json.docs[0];
                         this.contents = json; //sets contents to docs array in JSON file
                         this.setContents();
+                        
+                        console.log(this.contents);
                     })
 
                     //dont worry about this rn
-                // let isbnLink = `ISBN:${this.bookISBN}`
-                // fetch(`https://openlibrary.org/api/books?bibkeys=${isbnLink}&jscmd=details&format=json`)
-                //     .then(response => {
-                //         if (!response.ok) {
-                //             throw Error(`ERROR: ${response.statusText}`);
-
-                //         }
-                //         return response.json();
-                //     })
-                //     .then(json => {
-                //         console.log(json);
-                        
-                //     })
+                // fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${this.bookISBN}&jscmd=details&format=json`)
                 
             }
         }, // end search
