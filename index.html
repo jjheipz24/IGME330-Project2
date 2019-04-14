@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IGME 230: Project 2</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Add this to <head> -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
+
+    <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <b-container fluid id="root"> 
+        <b-row>
+            <header>
+                <h1>We need a good name</h1>
+                <p>input the title of a book to receive movie recommendations</p>
+            </header>
+        </b-row>
+        <b-row class="searchArea" align-h="center">
+            <b-form-input id="searchbar" placeholder="Enter book title here..."></b-form-input><b-button variant="primary" id="search">Search</b-button>
+        </b-row>
+        <b-row>
+            <b-col>
+                <div class="text-left">
+                    <h2>Mr. Mercedes</h2>
+                    <img src="bookpic.jpg" class="rounded" id="bookCover" alt="Cover Image">
+                </div>
+                <div class="info">
+                    <h3>Stephen King | Crime fiction</h3>
+                    <p>Mr. Mercedes is a crime novel by American writer Stephen King. It is his 51st novel and the 44th published under his own name. He calls it his first hard-boiled detective book. It was published on June 3, 2014.[1] On June 10, 2014 the author described Mr. Mercedes on Twitter as the first volume of a projected trilogy; it was followed in June 2015 by Finders Keepers, the first draft of which was finished around the time Mr. Mercedes was published,[2][3] and in June 2016 by End of Watch.</p>
+                </div>
+            </b-col>
+            <b-col cols="7" id="movies">
+                <b-row class="movieSug">
+                    <b-col class="text-center">
+                        <img src="moviepic1.jpg" alt="movie poster" class="movieIMG">
+                    </b-col>
+                    <b-col cols="8" class="text-left">
+                        <h2>Dark Crimes</h2>
+                        <p>PG-13</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </b-col>
+                </b-row>
+                <b-row class="movieSug">
+                    <b-col class="text-center">
+                        <img src="moviepic1.jpg" alt="movie poster" class="movieIMG">
+                    </b-col>
+                    <b-col cols="8" class="text-left">
+                        <h2>Dark Crimes</h2>
+                        <p>PG-13</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </b-col>
+                </b-row>
+                <b-row class="movieSug">
+                    <b-col class="text-center">
+                        <img src="moviepic1.jpg" alt="movie poster" class="movieIMG">
+                    </b-col>
+                    <b-col cols="8" class="text-left">
+                        <h2>Dark Crimes</h2>
+                        <p>PG-13</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </b-col>
+                </b-row>
+                <b-row class="movieSug">
+                    <b-col class="text-center">
+                        <img src="moviepic1.jpg" alt="movie poster" class="movieIMG">
+                    </b-col>
+                    <b-col cols="8" class="text-left">
+                        <h2>Dark Crimes</h2>
+                        <p>PG-13</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </b-col>
+                </b-row> 
+                <b-row class="movieSug">
+                        <b-col class="text-center">
+                        <img src="moviepic1.jpg" alt="movie poster" class="movieIMG">
+                    </b-col>
+                    <b-col cols="8" class="text-left">
+                        <h2>Dark Crimes</h2>
+                        <p>PG-13</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </b-col>
+                </b-row> 
+            </b-col>
+        </b-row>
+        <b-row>
+            <footer>
+                <p>Created by Jin Jin Heipler and Julia Hotaling | 2019</p>
+            </footer>
+        </b-row>
+    </b-container fluid>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

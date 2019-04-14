@@ -1,0 +1,84 @@
+
+header {
+    background: #0599F1;
+    width: 100vw;
+    padding: 20px 10px 20px 10px;
+
+    text-align: center;
+    font-family: 'Questrial', sans-serif;
+    color: white;
+}
+
+footer {
+    background: #0599F1;
+    margin-top: 30px;
+    width: 100vw;
+    padding: 20px 10px 10px 10px;
+
+    text-align: center;
+    font-family: 'Questrial', sans-serif;
+    color: white;
+}
+
+body {
+    background: #F4F5F5;
+}
+
+.searchArea {
+    margin: 20px 10px 20px 10px;
+}
+
+#searchbar {
+    width: 300px;
+    border-radius: 25px 0px 0px 25px;
+    margin-right: 10px;
+}
+
+#search {
+    width: 80px;
+    text-align: left;
+    border-radius: 0px 25px 25px 0px;
+}
+
+h2 {
+    font-family: 'Questrial', sans-serif; 
+}
+
+h3 {
+    font-family: 'Questrial', sans-serif;
+    font-size: 14px;
+}
+
+#bookCover {
+    position: absolute;
+}
+
+.info {
+    max-width: 600px;
+    background: lightgray;
+    padding: 20px 20px 20px 210px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+#movies {
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.movieIMG {
+    max-width: 100px;
+}
+
+.movieSug {
+    margin: 10px 0px 0px 10px;
+}
+
+.movieSug h2 {
+    font-size: 16px;
+}
+
+.movieSug p {
+    font-size: 14px;
+}
+
