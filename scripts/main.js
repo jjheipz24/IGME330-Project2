@@ -2,10 +2,13 @@ let app = new Vue({
     el: '#root',
     data: {
         link: "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=",
+        list: {
+
+        },
         bookName: " ",
         bookHeader: " ",
         bookAuthor: "Stephen King",
-        bookDescrip: "Content",
+        bookDescrip: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
         bookPic: "../bookpic.jpg",
         numResults: ""
     },
@@ -33,11 +36,13 @@ let app = new Vue({
                     })
                     .then(json => {
                         console.log(json);
-                        //this.data = json;
+                        json = json.docs[0]
+                        this.list = json;
                     })
             }
         } // end search
 
     } // end methods
+
 
 });
