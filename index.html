@@ -29,7 +29,7 @@
             </header>
         </b-row>
 
-        <b-row class="searchArea" align-h="center">
+        <b-row class="searchArea" align-h="left">
             <b-form-input id="searchbar" placeholder="Enter book title here..."></b-form-input>
             <b-button variant="primary" id="search">Search</b-button>
         </b-row>
@@ -39,15 +39,8 @@
         <b-row>
 
             <b-col id="book"> 
-                
-                <div class="text-left">
-                    <h2>Mr. Mercedes</h2>
-                    <img src="bookpic.jpg" class="rounded" id="bookCover" alt="Cover Image">
-                </div>
-                <div class="info">
-                    <h3>Stephen King | Crime fiction</h3>
-                    <p>Mr. Mercedes is a crime novel by American writer Stephen King. It is his 51st novel and the 44th published under his own name. He calls it his first hard-boiled detective book. It was published on June 3, 2014.[1] On June 10, 2014 the author described Mr. Mercedes on Twitter as the first volume of a projected trilogy; it was followed in June 2015 by Finders Keepers, the first draft of which was finished around the time Mr. Mercedes was published,[2][3] and in June 2016 by End of Watch.</p>
-                </div>
+
+                    <book-info v-bind:title="result.q" v-bind:author="result.a" v-bind:descrip="result.a"></book-info>
 
             </b-col>
 
@@ -76,6 +69,7 @@
 
     </b-container fluid>
 
+    <script src="scripts/components.js"></script>
     <script src="scripts/main.js.js"></script>
 </body>
 
