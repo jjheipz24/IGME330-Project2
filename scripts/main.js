@@ -57,11 +57,21 @@ let app = new Vue({
 
                         console.log(this.contents);
                         this.link = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+                        
+                    });
+
+                    //grab description using details from Books Api
+                    fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:9780980200447&jscmd=details&format=json`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw Error(`ERROR: ${response.statusText}`);
+
+                        }
+                        return response.json();
                     })
-
-                //dont worry about this rn
-                // fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${this.bookISBN}&jscmd=details&format=json`)
-
+                    .then(json => {
+                        console.log(json);            
+                    });
             }
         }, // end search
 
