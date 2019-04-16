@@ -54,13 +54,14 @@ let app = new Vue({
                         json = json.docs[0];
                         this.contents = json; //sets contents to docs array in JSON file
                         this.setContents();
-                        
+
                         console.log(this.contents);
+                        this.link = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
                     })
 
-                    //dont worry about this rn
+                //dont worry about this rn
                 // fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${this.bookISBN}&jscmd=details&format=json`)
-                
+
             }
         }, // end search
 
@@ -74,6 +75,7 @@ let app = new Vue({
             this.bookPic = this.bookImgLink;
             this.subjects = this.contents.subject;
             console.log(this.subjects);
+            this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
 
             this.styleLoad.display = 'none';
             this.styleInfo.display = 'block';
