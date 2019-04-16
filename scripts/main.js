@@ -54,24 +54,14 @@ let app = new Vue({
                         json = json.docs[0];
                         this.contents = json; //sets contents to docs array in JSON file
                         this.setContents();
-
                         console.log(this.contents);
+
+
                         this.link = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-                        
+
                     });
 
-                    //grab description using details from Books Api
-                    fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:9780980200447&jscmd=details&format=json`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw Error(`ERROR: ${response.statusText}`);
 
-                        }
-                        return response.json();
-                    })
-                    .then(json => {
-                        console.log(json);            
-                    });
             }
         }, // end search
 
@@ -89,7 +79,7 @@ let app = new Vue({
 
             this.styleLoad.display = 'none';
             this.styleInfo.display = 'block';
-        },
+        }
 
     } // end methods
 
