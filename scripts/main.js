@@ -20,6 +20,9 @@ let app = new Vue({
         },
         styleInfo: {
             display: 'none'
+        },
+        error: {
+            display: 'none'
         }
     },
     methods: {
@@ -42,8 +45,12 @@ let app = new Vue({
                 fetch(this.link)
                     .then(response => {
                         if (!response.ok) {
-                            throw Error(`ERROR: ${response.statusText}`);
-
+                            throw Error(
+                                this.styleLoad.display = 'none',
+                                this.styleInfo.display = 'none',
+                                this.error.display = 'block',
+                                `ERROR: ${response.statusText}`
+                            );
                         }
                         return response.json();
                     })
@@ -70,7 +77,7 @@ let app = new Vue({
             this.bookAuthor = this.contents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
             this.bookISBN = this.contents.isbn[0]; //sets isbn of book
             this.bookImgLink += this.bookISBN;
-            this.bookImgLink += `-M.jpg`;
+            this.bookImgLink += `-L.jpg`;
             this.bookDescrip = '';
             this.bookPic = this.bookImgLink;
             this.subjects = this.contents.subject;

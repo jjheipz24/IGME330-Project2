@@ -43,6 +43,10 @@
                     <b-spinner variant="primary" style="width: 5rem; height: 5rem;" type="grow" label="Spinning"></b-spinner>
                 </div>
 
+                <div v-bind:style="error" id="danger" class="text-center"> 
+                    <b-alert show variant="danger">Sorry, we were unable to find your book. Please make sure you've entered the title correctly and try again.</b-alert>
+                </div>
+
                 <div id="bookHTML" v-bind:style="styleInfo">
                     <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
                     <book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
@@ -51,7 +55,7 @@
 
             </b-col>
 
-            <b-col cols="7" id="movies">
+            <b-col cols="8" id="movies">
 
                 <b-row class="movieSug">
                     <b-col cols="2" class="text-center">

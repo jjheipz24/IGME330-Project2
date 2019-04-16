@@ -1,6 +1,6 @@
 Vue.component('book-title', {
     props: ['title', 'imglink'],
-    template: `<div class="text-left">
+    template: `<div class="text-center">
         <h2>{{title}}</h2>
         <img v-bind:src="imglink" class="rounded" id="bookCover" alt="Cover Image">
 </div>`
@@ -8,7 +8,7 @@ Vue.component('book-title', {
 
 Vue.component('book-info', {
     props: ['author', 'descrip'],
-    template: `<div class="info">
+    template: `<div class="info text-center">
         <h3>{{author}}</h3>
         </div>`
 });
