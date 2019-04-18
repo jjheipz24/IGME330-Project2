@@ -6,7 +6,7 @@ let app = new Vue({
     data: {
         //-------------------BOOK CONTENT----------------
         bookLink: "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=",
-        contents: {
+        bookContents: {
 
         },
         bookName: " ",
@@ -19,6 +19,11 @@ let app = new Vue({
         subjects: [],
 
         //--------------------MOVIE CONTENT-----------------
+        movieContents: {
+
+        },
+        movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&",
+
         numResults: "",
 
         styleLoad: {
@@ -45,6 +50,7 @@ let app = new Vue({
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
                 this.bookLink += `${this.bookName}`;
+                this.movieSearch(this.bookName);
 
                 this.bookName = ""; //clears search bar
                 fetch(this.bookLink)
@@ -67,28 +73,48 @@ let app = new Vue({
 
                         //isolates first result found for book and all of its properties
                         json = json.docs[0];
-                        this.contents = json; //sets contents to docs array in JSON file
+                        this.bookContents = json; //sets contents to docs array in JSON file
                         this.setContents();
-                        console.log(this.contents);
+                        console.log(this.bookContents);
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+
 
                     });
 
 
             }
         }, // end search
+        movieSearch(name) {
+            this.movieLink += `q=${name}&type=movies`;
+            fetch(this.movieLink)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(
+                            `ERROR: ${response.statusText}`
+                        );
+                    }
+                    return response.json();
+                })
+                .then(json => {
+
+                    console.log(json);
+                    this.movieContents = json;
+
+                });
+
+        },
 
         setContents() {
-            this.bookHeader = this.contents.title; //sets book header to actual title of book
-            this.bookAuthor = this.contents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
-            this.bookISBN = this.contents.isbn[0]; //sets isbn of book
+            this.bookHeader = this.bookContents.title; //sets book header to actual title of book
+            this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
+            this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
             this.bookImgLink += this.bookISBN;
             this.bookImgLink += `-L.jpg`;
             this.bookDescrip = '';
             this.bookPic = this.bookImgLink;
-            this.subjects = this.contents.subject;
+            this.subjects = this.bookContents.subject;
             console.log(this.subjects);
             this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
 
