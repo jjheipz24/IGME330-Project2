@@ -49,9 +49,6 @@ let app = new Vue({
                     .then(response => {
                         if (!response.ok) {
                             throw Error(
-                                this.styleLoad.display = 'none',
-                                this.styleInfo.display = 'none',
-                                this.error.display = 'block',
                                 `ERROR: ${response.statusText}`
                             );
                         }
@@ -59,6 +56,12 @@ let app = new Vue({
                     })
                     .then(json => {
                         console.log(json);
+
+                        if (!json.ok) {
+                            this.styleLoad.display = 'none';
+                            this.styleInfo.display = 'none';
+                            this.error.display = 'block';  
+                        }
 
                         //isolates first result found for book and all of its properties
                         json = json.docs[0];
