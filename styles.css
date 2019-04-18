@@ -29,15 +29,20 @@ body {
 }
 
 #searchbar {
-    width: 300px;
+    width: 400px;
+}
+
+#searchInput {
     border-radius: 25px 0px 0px 25px;
-    margin-right: 10px;
 }
 
 #search {
     width: 80px;
+    margin-left: 20px;
     text-align: left;
     border-radius: 0px 25px 25px 0px;
+
+    background-color: #0599F1;
 }
 
 h1 {
@@ -59,6 +64,19 @@ h3 {
     font-size: 14px;
 }
 
+#limitSel {
+    margin-right: 5px;
+}
+
+#limit{
+    width: 100px;
+}
+
+.function {
+    width: 120px;
+    background-color: #0599F1;
+}
+
 #movies {
     height: 70vh;
     overflow-y: scroll;
@@ -76,7 +94,7 @@ h3 {
 
 #movies::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #007bff;
+    background-color: #0599F1;
 }
 
 #movies::-webkit-scrollbar-thumb:hover {
