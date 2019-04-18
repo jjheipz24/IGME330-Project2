@@ -4,7 +4,8 @@
 let app = new Vue({
     el: '#root',
     data: {
-        link: "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=",
+        //-------------------BOOK CONTENT----------------
+        bookLink: "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=",
         contents: {
 
         },
@@ -16,6 +17,8 @@ let app = new Vue({
         bookISBN: "",
         bookPic: " ", //we should probably add a placeholder image that will be shown in the final product
         subjects: [],
+
+        //--------------------MOVIE CONTENT-----------------
         numResults: "",
 
         styleLoad: {
@@ -34,18 +37,17 @@ let app = new Vue({
             if (this.bookName == " ") {
                 return;
             } else {
-                //---------ADD LOADING IMAGE HERE-------
-                //------------I'D SOMEHOW FIND A WAY TO SET IT EQUAL TO THE BOOKPIC VARIABLE SO THAT IT DISAPPEARS WHEN IT GETS OVERRIDDEN BY THE ACTUAL BOOKPIC---------
+
                 this.styleInfo.display = "none";
                 this.styleLoad.display = "block";
 
                 //Changes input to acceptable form to be searched
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
-                this.link += `${this.bookName}`;
+                this.bookLink += `${this.bookName}`;
 
                 this.bookName = ""; //clears search bar
-                fetch(this.link)
+                fetch(this.bookLink)
                     .then(response => {
                         if (!response.ok) {
                             throw Error(
@@ -60,7 +62,7 @@ let app = new Vue({
                         if (!json.ok) {
                             this.styleLoad.display = 'none';
                             this.styleInfo.display = 'none';
-                            this.error.display = 'block';  
+                            this.error.display = 'block';
                         }
 
                         //isolates first result found for book and all of its properties
@@ -70,7 +72,7 @@ let app = new Vue({
                         console.log(this.contents);
 
 
-                        this.link = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+                        this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
 
                     });
 
