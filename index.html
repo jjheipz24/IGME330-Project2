@@ -29,9 +29,26 @@
             </header>
         </b-row>
 
-        <b-row class="searchArea" align-h="left">
-            <b-form-input id="searchbar" placeholder="Enter book title here..." v-model.trim="bookName"></b-form-input>
-            <b-button variant="primary" id="search" @click="search">Search</b-button>
+        <b-row class="searchArea">
+            <b-col align-h="left">
+                <b-input-group  id="searchbar" >  
+                    <b-form-input id="searchInput" placeholder="Enter book title here..." v-model.trim="bookName"></b-form-input>
+                    
+                    <b-input-group-append>
+                        <b-button variant="primary" id="search" @click="search">Search</b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </b-col>
+
+            <b-col cols="1" align-h="right" id="limitSel">
+                <b-input-group>
+                    <b-input-group-prepend>
+                            <b-badge class="function" variant="primary"># of Results</b-badge>
+                    </b-input-group-prepend>
+                    <!--v-model="selected" :options="options"--> 
+                    <b-form-select id="limit" size="sm" class="mt-3"></b-form-select>
+                </b-input-group>
+            </b-col>
         </b-row>
 
         <!--CONSIDER REPLACING WITH ES6 CLASS OR TEMPLATE-->
@@ -56,7 +73,6 @@
             </b-col>
 
             <b-col cols="8" id="movies">
-
                 <b-row class="movieSug">
                     <b-col cols="2" class="text-center">
                         <img src="moviepic1.jpg" alt="movie poster" class="movieIMG rounded">
