@@ -1,3 +1,6 @@
+//TasteDive access key
+//334818-IGME230P-KCLLAGPP
+
 let app = new Vue({
     el: '#root',
     data: {
