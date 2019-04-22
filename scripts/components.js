@@ -14,15 +14,17 @@ Vue.component('book-info', {
 });
 
 Vue.component('movie-info', {
-    props: ['movieimg', 'title', 'rating', 'descrip'],
+    props: ['titles', 'ratings', 'descrips'],
     template: `<b-row class="movieSug">
-        <b-col cols="2" class="text-center">
-            <img v-bind:src="movieimg" alt="movie poster" class="movieIMG rounded">
-        </b-col>
         <b-col class="text-left">
-            <h2>{{title}}</h2>
-            <p>{{rating}}</p>
-            <p>{{descrip}}</p>
+            <h2>{{titles}}</h2>
+            <p>{{ratings}}</p>
+            <p>{{descrips}}</p>
         </b-col>
         </b-row>`
 });
+
+//v-for="title in titles" v-bind:title="title"
+//v-for="rating in ratings" v-bind:rating="rating"
+//v-for="descrip in descrips" v-bind:descrip="descrip"
+

@@ -1,5 +1,6 @@
 //TasteDive access key
 //334818-IGME230P-KCLLAGPP
+//OMBD api key: 1c34b0e6
 
 let app = new Vue({
     el: '#root',
@@ -23,6 +24,13 @@ let app = new Vue({
 
         },
         movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&",
+        movieInfoLink: "http://www.omdbapi.com/?apikey=1c34b0e6&",
+        movieTitles: " ",
+        ratings: " ",
+        movieDescrips: " ",
+        movieInfoContents: {
+
+        },
 
         numResults: "",
 
@@ -34,7 +42,13 @@ let app = new Vue({
         },
         error: {
             display: 'none'
-        }
+        },
+        selected: 5,
+        options: [
+            { value: 5, text: '5' },
+            { value: 10, text: '10' },
+            { value: 15, text: '15' }
+        ]
     },
     methods: {
         search() {
@@ -50,7 +64,7 @@ let app = new Vue({
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
                 this.bookLink += `${this.bookName}`;
-                this.movieSearch(this.bookName);
+                this.movieSearch(this.bookName, this.selected);
 
                 this.bookName = ""; //clears search bar
                 fetch(this.bookLink)
@@ -73,8 +87,8 @@ let app = new Vue({
                     
                         //thank you Coehl
                         //isolates first result found for book and all of its properties
-                        this.bookContents = json.docs[1]; //sets contents to docs array in JSON file
-                        console.log(json.docs[1].author_name[0]);
+                        this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
+                        console.log(json.docs[0].author_name[0]);
                         this.setContents();
 
 
@@ -82,12 +96,14 @@ let app = new Vue({
 
 
                     });
-
-
+                console.log(this.movieTitles);
+                    
+                this.movieInfo(this.movieTitles);
             }
         }, // end search
-        movieSearch(name) {
-            this.movieLink += `q=${name}&type=movies`;
+
+        movieSearch(name, limit) {
+            this.movieLink += `q=${name}&type=movies&limit=${limit}`;
             fetch(this.movieLink)
                 .then(response => {
                     if (!response.ok) {
@@ -101,9 +117,30 @@ let app = new Vue({
 
                     console.log(json);
                     this.movieContents = json;
+                    this.setMovieContents();
 
                 });
 
+        },
+
+        movieInfo(name) {
+            this.movieInfoLink += `t=${name}`;
+            fetch(this.movieInfoLink)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(
+                            `ERROR: ${response.statusText}`
+                        );
+                    }
+                    return response.json();
+                })
+                .then(json => {
+
+                    console.log(json);
+                    this.movieInfoContents = json;
+                    this.getMovieInfo();
+
+                });
         },
 
         setContents() {
@@ -120,9 +157,20 @@ let app = new Vue({
 
             this.styleLoad.display = 'none';
             this.styleInfo.display = 'block';
+        },
+
+        setMovieContents() {
+            this.movieTitles = this.movieContents.Similar.Results[0].Name;
+        },
+
+        getMovieInfo() {
+            
         }
 
     } // end methods
 
 
 });
+
+//http://www.omdbapi.com/?apikey=1c34b0e6&t=%22twilight%22
+//https://tastedive.com/read/api
