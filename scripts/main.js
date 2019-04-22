@@ -72,10 +72,9 @@ let app = new Vue({
                         }
 
                         //isolates first result found for book and all of its properties
-                        json = json.docs[0];
-                        this.bookContents = json; //sets contents to docs array in JSON file
+                        this.bookContents = json.docs[1]; //sets contents to docs array in JSON file
+                        console.log(json.docs[1].author_name[0]);
                         this.setContents();
-                        console.log(this.bookContents);
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
