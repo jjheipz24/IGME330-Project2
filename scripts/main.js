@@ -70,7 +70,8 @@ let app = new Vue({
                             this.styleInfo.display = 'none';
                             this.error.display = 'block';
                         }
-
+                    
+                        //thank you Coehl
                         //isolates first result found for book and all of its properties
                         this.bookContents = json.docs[1]; //sets contents to docs array in JSON file
                         console.log(json.docs[1].author_name[0]);
