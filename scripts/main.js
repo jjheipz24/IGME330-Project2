@@ -24,7 +24,7 @@ let app = new Vue({
 
         },
         movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&",
-        movieInfoLink: "http://www.omdbapi.com/?apikey=1c34b0e6&",
+        movieInfoLink: "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&",
         movieTitles: " ",
         ratings: " ",
         movieDescrips: " ",
