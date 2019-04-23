@@ -46,9 +46,18 @@ let app = new Vue({
         },
         selected: 5,
         options: [
-            { value: 5, text: '5' },
-            { value: 10, text: '10' },
-            { value: 15, text: '15' }
+            {
+                value: 5,
+                text: '5'
+            },
+            {
+                value: 10,
+                text: '10'
+            },
+            {
+                value: 15,
+                text: '15'
+            }
         ]
     },
     methods: {
@@ -85,7 +94,7 @@ let app = new Vue({
                             this.styleInfo.display = 'none';
                             this.error.display = 'block';
                         }
-                    
+
                         //thank you Coehl
                         //isolates first result found for book and all of its properties
                         this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
@@ -165,7 +174,7 @@ let app = new Vue({
 
         setMovieContents() {
             this.movieTitles = this.movieContents.Similar.Results[0].Name;
-            
+
             this.movieInfo(this.movieTitles);
 
         },
@@ -173,7 +182,7 @@ let app = new Vue({
         getMovieInfo() {
             this.ratings = this.movieInfoContents.Rated;
             this.movieDescrips = this.movieInfoContents.Plot;
-            this.movieScores =  this.movieInfoContents.Ratings[0].Value;
+            this.movieScores = this.movieInfoContents.Ratings[0].Value;
         }
 
     } // end methods
