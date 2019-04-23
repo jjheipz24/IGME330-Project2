@@ -28,6 +28,7 @@ let app = new Vue({
         movieTitles: " ",
         ratings: " ",
         movieDescrips: " ",
+        movieScores: " ",
         movieInfoContents: {
 
         },
@@ -96,9 +97,8 @@ let app = new Vue({
 
 
                     });
-                console.log(this.movieTitles);
-                    
-                this.movieInfo(this.movieTitles);
+
+
             }
         }, // end search
 
@@ -118,6 +118,8 @@ let app = new Vue({
                     console.log(json);
                     this.movieContents = json;
                     this.setMovieContents();
+
+                    this.movieLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
 
                 });
 
@@ -140,6 +142,8 @@ let app = new Vue({
                     this.movieInfoContents = json;
                     this.getMovieInfo();
 
+                    this.movieInfoLink = "http://www.omdbapi.com/?apikey=1c34b0e6&" //resets link to search again
+
                 });
         },
 
@@ -161,10 +165,15 @@ let app = new Vue({
 
         setMovieContents() {
             this.movieTitles = this.movieContents.Similar.Results[0].Name;
+            
+            this.movieInfo(this.movieTitles);
+
         },
 
         getMovieInfo() {
-            
+            this.ratings = this.movieInfoContents.Rated;
+            this.movieDescrips = this.movieInfoContents.Plot;
+            this.movieScores =  this.movieInfoContents.Ratings[0].Value;
         }
 
     } // end methods

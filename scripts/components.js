@@ -14,14 +14,13 @@ Vue.component('book-info', {
 });
 
 Vue.component('movie-info', {
-    props: ['titles', 'ratings', 'descrips'],
-    template: `<b-row class="movieSug">
-        <b-col class="text-left">
-            <h2>{{titles}}</h2>
-            <p>{{ratings}}</p>
-            <p>{{descrips}}</p>
-        </b-col>
-        </b-row>`
+    props: ['titles', 'ratings', 'descrips', 'scores'],
+    template: 
+    `<b-row class="movieSug">
+        <h2>{{titles}}</h2>
+        <p>{{ratings}}</p><p class="score">{{scores}}</p>
+        <p>{{descrips}}</p>
+    </b-row>`
 });
 
 //v-for="title in titles" v-bind:title="title"
