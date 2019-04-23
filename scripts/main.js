@@ -63,7 +63,7 @@ let app = new Vue({
     methods: {
         search() {
             //Won't search if nothing added in search bar
-            if (this.bookName == " ") {
+            if (this.bookName == undefined) {
                 return;
             } else {
 
@@ -74,6 +74,7 @@ let app = new Vue({
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
                 this.bookLink += `${this.bookName}`;
+                
                 this.movieSearch(this.bookName, this.selected);
 
                 this.bookName = ""; //clears search bar
@@ -89,10 +90,12 @@ let app = new Vue({
                     .then(json => {
                         console.log(json);
 
-                        if (!json.ok) {
+                        if (json.docs[0] == undefined) {
                             this.styleLoad.display = 'none';
                             this.styleInfo.display = 'none';
                             this.error.display = 'block';
+
+                            return;
                         }
 
                         //thank you Coehl
@@ -103,8 +106,6 @@ let app = new Vue({
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-
-
                     });
 
 
@@ -173,6 +174,7 @@ let app = new Vue({
         },
 
         setMovieContents() {
+            console.log(this.movieContents.Similar);
             this.movieTitles = this.movieContents.Similar.Results[0].Name;
 
             this.movieInfo(this.movieTitles);
