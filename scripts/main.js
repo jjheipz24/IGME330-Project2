@@ -44,6 +44,8 @@ let app = new Vue({
         error: {
             display: 'none'
         },
+
+        //--------------USER INPUT--------------------
         selected: 5,
         options: [
             {
@@ -60,13 +62,23 @@ let app = new Vue({
             }
         ]
     },
+    //bless this tutorial//
+    //https://vuejs.org/v2/cookbook/client-side-storage.html//
+    mounted() {
+        if (localStorage.bookName) {
+          this.bookName = localStorage.bookName;
+        }
+    },
     methods: {
         search() {
             //Won't search if nothing added in search bar
             if (this.bookName == undefined) {
                 return;
             } else {
+                //set bookname to local storage on search
+                localStorage.bookName = this.bookName;
 
+                //show the spinner while search is running
                 this.styleInfo.display = "none";
                 this.styleLoad.display = "block";
 
@@ -77,7 +89,7 @@ let app = new Vue({
                 
                 this.movieSearch(this.bookName, this.selected);
 
-                this.bookName = ""; //clears search bar
+                //this.bookName = " "; //clears search bar
                 fetch(this.bookLink)
                     .then(response => {
                         if (!response.ok) {
@@ -106,12 +118,10 @@ let app = new Vue({
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+                        this.movieLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again    
                     });
-
-
             }
         }, // end search
-
         movieSearch(name, limit) {
             this.movieLink += `q=${name}&type=movies&limit=${limit}`;
             fetch(this.movieLink)
@@ -128,9 +138,6 @@ let app = new Vue({
                     console.log(json);
                     this.movieContents = json;
                     this.setMovieContents();
-
-                    this.movieLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-
                 });
 
         },
@@ -194,3 +201,4 @@ let app = new Vue({
 
 //http://www.omdbapi.com/?apikey=1c34b0e6&t=%22twilight%22
 //https://tastedive.com/read/api
+

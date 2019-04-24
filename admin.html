@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Page</title>
+
+    <!--FIREBASE SERVER-->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB9rzeXc4ZlRJDIAXSJfxYp4ObIPRLawa8",
+            authDomain: "bookwatch-c8fbb.firebaseapp.com",
+            databaseURL: "https://bookwatch-c8fbb.firebaseio.com",
+            projectId: "bookwatch-c8fbb",
+            storageBucket: "bookwatch-c8fbb.appspot.com",
+            messagingSenderId: "894052480603"
+            };
+
+        firebase.initializeApp(config);
+
+        firebase.database().ref('users').push({
+            userName: getDisplayName(),
+            userID: getUid(),
+            search: this.bookName
+        });
+    </script>   
+</head>
+<body>
+        <h1>User Data</h1>
+        <ul id="userList"><li>No data yet!</li></ul>
+
+</body>
+</html>
+
+<!--https://console.firebase.google.com/u/0/project/bookwatch-c8fbb/database/firestore/data~2F-->
