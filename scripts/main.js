@@ -25,10 +25,10 @@ let app = new Vue({
         },
         movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&",
         movieInfoLink: "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&",
-        movieTitles: " ",
-        ratings: " ",
-        movieDescrips: " ",
-        movieScores: " ",
+        movieTitles: [],
+        ratings: [],
+        movieDescrips: [],
+        movieScores: [],
         movieInfoContents: {
 
         },
@@ -182,16 +182,19 @@ let app = new Vue({
 
         setMovieContents() {
             console.log(this.movieContents.Similar);
-            this.movieTitles = this.movieContents.Similar.Results[0].Name;
 
-            this.movieInfo(this.movieTitles);
+            for(let i = 0; i < limit; i++){
+                this.movieTitles.push(this.movieContents.Similar.Results[i].Name);
+                this.movieInfo(this.movieContents.Similar.Results[i].Name);
+            }
 
         },
 
         getMovieInfo() {
-            this.ratings = this.movieInfoContents.Rated;
-            this.movieDescrips = this.movieInfoContents.Plot;
-            this.movieScores = this.movieInfoContents.Ratings[0].Value;
+
+            this.ratings.push(this.movieInfoContents.Rated);
+            this.movieDescrips.push(this.movieInfoContents.Plot);
+            this.movieScores.push(movieInfoContents.Ratings[0].Value);
         }
 
     } // end methods
