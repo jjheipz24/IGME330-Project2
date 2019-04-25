@@ -100,7 +100,7 @@ let app = new Vue({
                         return response.json();
                     })
                     .then(json => {
-                        console.log(json);
+                        //console.log(json);
 
                         if (json.docs[0] == undefined) {
                             this.styleLoad.display = 'none';
@@ -113,7 +113,7 @@ let app = new Vue({
                         //thank you Coehl
                         //isolates first result found for book and all of its properties
                         this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
-                        console.log(json.docs[0].author_name[0]);
+                        //console.log(json.docs[0].author_name[0]);
                         this.setContents();
 
 
@@ -135,14 +135,16 @@ let app = new Vue({
                 })
                 .then(json => {
 
-                    console.log(json);
-                    this.movieContents = json;
-                    this.setMovieContents();
+                    //console.log(json);
+                    this.movieContents = json.Similar.Results;
+                    //console.dir(this.movieContents[0]); // HERE LOOK HERE, oh actually you guys found this lmao never mind
+                    this.setMovieContents(limit);
                 });
 
         },
 
         movieInfo(name) {
+            //console.dir(name);
             this.movieInfoLink += `t=${name}`;
             fetch(this.movieInfoLink)
                 .then(response => {
@@ -155,7 +157,7 @@ let app = new Vue({
                 })
                 .then(json => {
 
-                    console.log(json);
+                    //console.log(json);
                     this.movieInfoContents = json;
                     this.getMovieInfo();
 
@@ -173,28 +175,40 @@ let app = new Vue({
             this.bookDescrip = '';
             this.bookPic = this.bookImgLink;
             this.subjects = this.bookContents.subject;
-            console.log(this.subjects);
+            //console.log(this.subjects);
             this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
 
             this.styleLoad.display = 'none';
             this.styleInfo.display = 'block';
         },
 
-        setMovieContents() {
-            console.log(this.movieContents.Similar);
+        setMovieContents(limit) {
+            //console.log(this.movieContents.Similar);
+            //console.dir(this.movieContents);
 
             for(let i = 0; i < limit; i++){
-                this.movieTitles.push(this.movieContents.Similar.Results[i].Name);
-                this.movieInfo(this.movieContents.Similar.Results[i].Name);
+                // this.movieTitles.push(this.movieContents[i].Name); // Moving this to the getMovieInfo, in an attempt to fix wacky issue with bad data, remove the comments to see what is happenin
+                this.movieInfo(this.movieContents[i].Name);
             }
-
+            
+            //console.dir(this.movieTitles);
         },
 
         getMovieInfo() {
+            let check = this.movieInfoContents.Response;
+            //console.dir(this.movieInfoContents);
 
-            this.ratings.push(this.movieInfoContents.Rated);
-            this.movieDescrips.push(this.movieInfoContents.Plot);
-            this.movieScores.push(movieInfoContents.Ratings[0].Value);
+            // This checks ensures that no wonky movies sneak through the cracks with BAD DATA (not sure why its happening)
+            if (check != "False") {
+                //console.dir(this.movieInfoContents)
+                this.movieTitles.push(this.movieInfoContents.Title)
+                this.ratings.push(this.movieInfoContents.Rated);
+                this.movieDescrips.push(this.movieInfoContents.Plot);
+                this.movieScores.push(this.movieInfoContents.Ratings[0].Value);
+                //console.dir(this.movieInfoContents.Ratings[0].Value);
+            }
+            //console.dir(this.movieTitles);
+            //console.dir(this.ratings);
         }
 
     } // end methods

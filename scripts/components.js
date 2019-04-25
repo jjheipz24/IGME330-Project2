@@ -28,7 +28,7 @@ Vue.component('movie-info', {
     props: ['titles', 'ratings', 'descrips', 'scores'],
     template: 
     `<b-row class="movieSug">
-        <one-movie v-for="title in titles" v-bind:title="title"  v-for="rating in ratings" v-bind:rating="rating"  v-for="score in scores" v-bind:score="score"  v-for="descrip in descrips" v-bind:descrip="descrip"></one-movie>
+        <one-movie v-for="title in titles" v-bind:title="title" v-for="rating in ratings" v-bind:rating="rating"  v-for="score in scores" v-bind:score="score"  v-for="descrip in descrips" v-bind:descrip="descrip"></one-movie>
     </b-row>`
 });
 
