@@ -212,9 +212,11 @@ let app = new Vue({
             //console.dir(this.movieTitles);
             //console.dir(this.ratings);
         },
-
+        //creates a movie object for each suggested movie;
         AddMovieClass() {
-
+            for (let i = 0; i < this.movieTitles.length; i++) {
+                this.movieObjects.push(new Movie(this.movieTitles[i], this.ratings[i], this.movieDescrips[i], this.movieScores[i]));
+            }
         }
 
     } // end methods
