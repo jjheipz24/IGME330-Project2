@@ -13,22 +13,39 @@ Vue.component('book-info', {
         </div>`
 });
 
-Vue.component('one-movie', {
-    props: ['title', 'rating', 'descrip', 'score'],
+Vue.component('name', {
+    props: ['title'],
     template: 
-    `<div id="one">
-        <h2>{{ title }}</h2>
-        <p>{{ rating }}</p>
-        <p class="score">{{ score }}</p>
-        <p>{{ descrip }}</p>
-    </div>`
+    `<h2>{{ title }}</h2>`
 });
+
+Vue.component('letterRating', {
+    props: ['rating'],
+    template: 
+    `<p>{{ rating }}</p>`
+});
+
+Vue.component('description', {
+    props: ['descrip'],
+    template: 
+    `<p>{{ descrip }}</p>`
+});
+
+Vue.component('numRating', {
+    props: ['score'],
+    template: 
+    `<p class="score">{{ score }}</p>`
+});
+
 
 Vue.component('movie-info', {
     props: ['titles', 'ratings', 'descrips', 'scores'],
     template: 
     `<b-row class="movieSug">
-        <one-movie v-for="title in titles" v-bind:title="title" v-for="rating in ratings" v-bind:rating="rating"  v-for="score in scores" v-bind:score="score"  v-for="descrip in descrips" v-bind:descrip="descrip"></one-movie>
+        <name v-for="title in titles" v-bind:title="title"></name> 
+        <letterRating v-for="rating in ratings" v-bind:rating="rating"></letterRating>  
+        <numRating v-for="score in scores" v-bind:score="score"></numRating>  
+        <description v-for="descrip in descrips" v-bind:descrip="descrip"></description>
     </b-row>`
 });
 
