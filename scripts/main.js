@@ -32,6 +32,7 @@ let app = new Vue({
         movieInfoContents: {
 
         },
+        movieObjects: [],
 
         numResults: "",
 
@@ -66,7 +67,7 @@ let app = new Vue({
     //https://vuejs.org/v2/cookbook/client-side-storage.html//
     mounted() {
         if (localStorage.bookName) {
-          this.bookName = localStorage.bookName;
+            this.bookName = localStorage.bookName;
         }
     },
     methods: {
@@ -86,8 +87,8 @@ let app = new Vue({
                 this.bookName = this.bookName.toLowerCase();
                 this.bookName = this.bookName.replace(/ /g, "+");
                 this.bookLink += `${this.bookName}`;
-                
-                this.movieSearch(this.bookName, this.selected);
+
+                this.movieSearch(this.bookName);
 
                 //this.bookName = " "; //clears search bar
                 fetch(this.bookLink)
@@ -122,8 +123,8 @@ let app = new Vue({
                     });
             }
         }, // end search
-        movieSearch(name, limit) {
-            this.movieLink += `q=${name}&type=movies&limit=${limit}`;
+        movieSearch(name) {
+            this.movieLink += `q=${name}&type=movies&limit=${this.selected}`;
             fetch(this.movieLink)
                 .then(response => {
                     if (!response.ok) {
@@ -138,7 +139,7 @@ let app = new Vue({
                     //console.log(json);
                     this.movieContents = json.Similar.Results;
                     //console.dir(this.movieContents[0]); // HERE LOOK HERE, oh actually you guys found this lmao never mind
-                    this.setMovieContents(limit);
+                    this.setMovieContents();
                 });
 
         },
@@ -182,15 +183,16 @@ let app = new Vue({
             this.styleInfo.display = 'block';
         },
 
-        setMovieContents(limit) {
+        setMovieContents() {
             //console.log(this.movieContents.Similar);
             //console.dir(this.movieContents);
 
-            for(let i = 0; i < limit; i++){
+            for (let i = 0; i < this.selected; i++) {
                 // this.movieTitles.push(this.movieContents[i].Name); // Moving this to the getMovieInfo, in an attempt to fix wacky issue with bad data, remove the comments to see what is happenin
                 this.movieInfo(this.movieContents[i].Name);
+
             }
-            
+
             //console.dir(this.movieTitles);
         },
 
@@ -209,6 +211,10 @@ let app = new Vue({
             }
             //console.dir(this.movieTitles);
             //console.dir(this.ratings);
+        },
+
+        AddMovieClass() {
+
         }
 
     } // end methods
@@ -218,4 +224,3 @@ let app = new Vue({
 
 //http://www.omdbapi.com/?apikey=1c34b0e6&t=%22twilight%22
 //https://tastedive.com/read/api
-
