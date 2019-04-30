@@ -1,6 +1,6 @@
 //class to store movie data
 
-class Movie() {
+class Movie {
     constructor(title, rating, description, score) {
         this.title = title;
         this.rating = rating;
