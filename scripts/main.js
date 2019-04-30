@@ -160,6 +160,7 @@ let app = new Vue({
 
                     //console.log(json);
                     this.movieInfoContents = json;
+                    console.log(this.movieInfoContents);
                     this.getMovieInfo();
 
                     this.movieInfoLink = "http://www.omdbapi.com/?apikey=1c34b0e6&" //resets link to search again
@@ -191,7 +192,9 @@ let app = new Vue({
                 // this.movieTitles.push(this.movieContents[i].Name); // Moving this to the getMovieInfo, in an attempt to fix wacky issue with bad data, remove the comments to see what is happenin
                 this.movieInfo(this.movieContents[i].Name);
 
+
             }
+
 
             //console.dir(this.movieTitles);
         },
@@ -204,10 +207,11 @@ let app = new Vue({
             if (check != "False") {
                 //console.dir(this.movieInfoContents)
                 this.movieTitles.push(this.movieInfoContents.Title)
+
                 this.ratings.push(this.movieInfoContents.Rated);
                 this.movieDescrips.push(this.movieInfoContents.Plot);
                 this.movieScores.push(this.movieInfoContents.Ratings[0].Value);
-                //console.dir(this.movieInfoContents.Ratings[0].Value);
+                this.AddMovieClass(); //console.dir(this.movieInfoContents.Ratings[0].Value);
             }
             //console.dir(this.movieTitles);
             //console.dir(this.ratings);
@@ -217,6 +221,7 @@ let app = new Vue({
             for (let i = 0; i < this.movieTitles.length; i++) {
                 this.movieObjects.push(new Movie(this.movieTitles[i], this.ratings[i], this.movieDescrips[i], this.movieScores[i]));
             }
+            //console.log(this.movieObjects);
         }
 
     } // end methods
