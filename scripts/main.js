@@ -40,8 +40,8 @@ let app = new Vue({
         movieContents: {
 
         },
-        movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&",
-        movieInfoLink: "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&",
+        movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&", //grabs movies similar to book 
+        movieInfoLink: "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&", //grabs the info for each similar movie
         movieTitles: [],
         ratings: [],
         movieDescrips: [],
@@ -53,6 +53,7 @@ let app = new Vue({
 
         numResults: "",
 
+        //changes the style of the book field, spinner, and error messages when needed throughout the program
         styleLoad: {
             display: 'none'
         },
@@ -64,6 +65,7 @@ let app = new Vue({
         },
 
         //--------------USER INPUT--------------------
+        //this is for how many movie suggestions are shown
         selected: 5,
         options: [
             {
@@ -84,6 +86,7 @@ let app = new Vue({
     //https://vuejs.org/v2/cookbook/client-side-storage.html//
     mounted() {
         if (localStorage.bookName) {
+            //save the last searched for book on refresh
             this.bookName = localStorage.bookName;
         }
     },
@@ -123,6 +126,7 @@ let app = new Vue({
                     .then(json => {
                         //console.log(json);
 
+                        //if json is undefined, show an error message
                         if (json.docs[0] == undefined) {
                             this.styleLoad.display = 'none';
                             this.styleInfo.display = 'none';
@@ -134,16 +138,17 @@ let app = new Vue({
                         //thank you Coehl
                         //isolates first result found for book and all of its properties
                         this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
-                        //console.log(json.docs[0].author_name[0]);
+
                         this.setContents();
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-                        this.movieLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again    
+                        this.movieLink =  "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again    
                     });
             }
         }, // end search
         movieSearch(name) {
+            //searches for movies similar to the book title and limited by how many the user wants (5/10/15)
             this.movieLink += `q=${name}&type=movies&limit=${this.selected}`;
             fetch(this.movieLink)
                 .then(response => {
@@ -156,16 +161,17 @@ let app = new Vue({
                 })
                 .then(json => {
 
-                    //console.log(json);
+                    //grab all the similar returned movie objects and sent them to set movie contents
                     this.movieContents = json.Similar.Results;
-                    //console.dir(this.movieContents[0]); // HERE LOOK HERE, oh actually you guys found this lmao never mind
+ 
                     this.setMovieContents();
                 });
 
         },
 
         movieInfo(name) {
-            //console.dir(name);
+
+            //search for that specific movie name
             this.movieInfoLink += `t=${name}`;
             fetch(this.movieInfoLink)
                 .then(response => {
@@ -178,9 +184,10 @@ let app = new Vue({
                 })
                 .then(json => {
 
-                    //console.log(json);
+                    //set movieInfoContents to the json returned
                     this.movieInfoContents = json;
-                    console.log(this.movieInfoContents);
+    
+                    //grab the info for each movie
                     this.getMovieInfo();
 
                     this.movieInfoLink = "http://www.omdbapi.com/?apikey=1c34b0e6&" //resets link to search again
@@ -205,43 +212,39 @@ let app = new Vue({
         },
 
         setMovieContents() {
-            //console.log(this.movieContents.Similar);
-            //console.dir(this.movieContents);
-
             for (let i = 0; i < this.selected; i++) {
-                // this.movieTitles.push(this.movieContents[i].Name); // Moving this to the getMovieInfo, in an attempt to fix wacky issue with bad data, remove the comments to see what is happenin
+                //call movieInfo for each movie passed back
                 this.movieInfo(this.movieContents[i].Name);
 
-
+                 //reset movieInfoLink
+                 this.movieInfoLink = "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&";
             }
 
-
-            //console.dir(this.movieTitles);
         },
 
         getMovieInfo() {
             let check = this.movieInfoContents.Response;
-            //console.dir(this.movieInfoContents);
 
-            // This checks ensures that no wonky movies sneak through the cracks with BAD DATA (not sure why its happening)
+            // This checks ensures that no wonky movies sneak through the cracks with BAD DATA 
+            //thank you Coehl ^
             if (check != "False") {
-                //console.dir(this.movieInfoContents)
+
+                //push movie info into the title, ratings, plot, etc arrays
+                //then add this to the movie class
                 this.movieTitles.push(this.movieInfoContents.Title)
 
                 this.ratings.push(this.movieInfoContents.Rated);
                 this.movieDescrips.push(this.movieInfoContents.Plot);
                 this.movieScores.push(this.movieInfoContents.Ratings[0].Value);
-                this.AddMovieClass(); //console.dir(this.movieInfoContents.Ratings[0].Value);
+                this.AddMovieClass(); 
             }
-            //console.dir(this.movieTitles);
-            //console.dir(this.ratings);
         },
+
         //creates a movie object for each suggested movie;
         AddMovieClass() {
             for (let i = 0; i < this.movieTitles.length; i++) {
                 this.movieObjects.push(new Movie(this.movieTitles[i], this.ratings[i], this.movieDescrips[i], this.movieScores[i]));
             }
-            //console.log(this.movieObjects);
         }
 
     } // end methods
