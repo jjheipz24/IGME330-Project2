@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">    
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         <b-row class="searchArea">
             <b-col align-h="left">
                 <b-input-group id="searchbar">
-                    <b-form-input id="searchInput" placeholder="Enter book title here..." v-model.trim="bookName"></b-form-input>
+                    <b-form-input id="searchInput" placeholder="Enter book title here..." v-model.trim="bookName" v-model.trim="query"></b-form-input>
 
                     <b-input-group-append>
                         <b-button variant="primary" id="search" @click="search">Search</b-button>
@@ -86,9 +86,15 @@
 
     </b-container fluid>
 
+    
+
     <script src="scripts/components.js"></script>
-    <script src="scripts/main.js"></script>
     <script src="scripts/movie.js"></script>
+
+    <!--FIREBASE SERVER-->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <script src="scripts/main.js"></script>
+ 
 </body>
 
 </html>

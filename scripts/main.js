@@ -2,6 +2,23 @@
 //334818-IGME230P-KCLLAGPP
 //OMBD api key: 1c34b0e6
 
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyB9rzeXc4ZlRJDIAXSJfxYp4ObIPRLawa8",
+    authDomain: "bookwatch-c8fbb.firebaseapp.com",
+    databaseURL: "https://bookwatch-c8fbb.firebaseio.com",
+    projectId: "bookwatch-c8fbb",
+    storageBucket: "bookwatch-c8fbb.appspot.com",
+    messagingSenderId: "894052480603"
+    };
+
+firebase.initializeApp(config);
+
+let database = firebase.database();
+
+let ref = database.ref('searchQuery');
+
+//create VUE app
 let app = new Vue({
     el: '#root',
     data: {
@@ -16,7 +33,7 @@ let app = new Vue({
         bookDescrip: " ",
         bookImgLink: "http://covers.openlibrary.org/b/isbn/",
         bookISBN: "",
-        bookPic: " ", //we should probably add a placeholder image that will be shown in the final product
+        bookPic: " ", 
         subjects: [],
 
         //--------------------MOVIE CONTENT-----------------
@@ -82,6 +99,9 @@ let app = new Vue({
                 //show the spinner while search is running
                 this.styleInfo.display = "none";
                 this.styleLoad.display = "block";
+
+                //pushes successful search term to firebase
+                ref.push(this.bookName);
 
                 //Changes input to acceptable form to be searched
                 this.bookName = this.bookName.toLowerCase();
