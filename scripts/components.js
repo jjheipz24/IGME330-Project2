@@ -32,6 +32,15 @@ Vue.component('movie-info', {
     </b-row>`
 });
 
+//Jin Jin's Thoughts/Pseudo Code: Nested v-for
+/*<div id="one" v-for="obj in movieObjects">
+<h2 v-for="title in obj.movieTitles">{{title}}</h2>
+<p v-for="rating in obj.ratings">{{rating}}</p>
+<p class="score" v-for="score in obj.movieScores">{{score}}</p>
+<p v-for="descrip in obj.movieDescrips">{{descrip}}</p>
+</div>*/
+
+
 //v-for="title in titles" v-bind:title="title"
 //v-for="rating in ratings" v-bind:rating="rating"
 //v-for="descrip in descrips" v-bind:descrip="descrip"
