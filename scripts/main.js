@@ -10,7 +10,7 @@ var config = {
     projectId: "bookwatch-c8fbb",
     storageBucket: "bookwatch-c8fbb.appspot.com",
     messagingSenderId: "894052480603"
-    };
+};
 
 firebase.initializeApp(config);
 
@@ -33,7 +33,7 @@ let app = new Vue({
         bookDescrip: " ",
         bookImgLink: "http://covers.openlibrary.org/b/isbn/",
         bookISBN: "",
-        bookPic: " ", 
+        bookPic: " ",
         subjects: [],
 
         //--------------------MOVIE CONTENT-----------------
@@ -113,7 +113,7 @@ let app = new Vue({
 
                 this.movieSearch(this.bookName);
 
-                //this.bookName = " "; //clears search bar
+                this.bookName = " "; //clears search bar
                 fetch(this.bookLink)
                     .then(response => {
                         if (!response.ok) {
@@ -143,7 +143,7 @@ let app = new Vue({
 
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-                        this.movieLink =  "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again    
+                        this.movieLink = "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again
                     });
             }
         }, // end search
@@ -163,7 +163,7 @@ let app = new Vue({
 
                     //grab all the similar returned movie objects and sent them to set movie contents
                     this.movieContents = json.Similar.Results;
- 
+
                     this.setMovieContents();
                 });
 
@@ -186,7 +186,7 @@ let app = new Vue({
 
                     //set movieInfoContents to the json returned
                     this.movieInfoContents = json;
-    
+
                     //grab the info for each movie
                     this.getMovieInfo();
 
@@ -216,8 +216,8 @@ let app = new Vue({
                 //call movieInfo for each movie passed back
                 this.movieInfo(this.movieContents[i].Name);
 
-                 //reset movieInfoLink
-                 this.movieInfoLink = "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&";
+                //reset movieInfoLink
+                this.movieInfoLink = "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&";
             }
 
         },
@@ -231,20 +231,21 @@ let app = new Vue({
 
                 //push movie info into the title, ratings, plot, etc arrays
                 //then add this to the movie class
-                this.movieTitles.push(this.movieInfoContents.Title)
+                /*this.movieTitles.push(this.movieInfoContents.Title)
+
 
                 this.ratings.push(this.movieInfoContents.Rated);
                 this.movieDescrips.push(this.movieInfoContents.Plot);
-                this.movieScores.push(this.movieInfoContents.Ratings[0].Value);
-                this.AddMovieClass(); 
+                this.movieScores.push(this.movieInfoContents.Ratings[0].Value); */
+                this.AddMovieClass(this.movieInfoContents.Title, this.movieInfoContents.Rated, this.movieInfoContents.Plot, this.movieInfoContents.Ratings[0].Value);
+
             }
         },
 
         //creates a movie object for each suggested movie;
-        AddMovieClass() {
-            for (let i = 0; i < this.movieTitles.length; i++) {
-                this.movieObjects.push(new Movie(this.movieTitles[i], this.ratings[i], this.movieDescrips[i], this.movieScores[i]));
-            }
+        AddMovieClass(title, rating, descrip, score) {
+            this.movieObjects.push(new Movie(title, rating, descrip, score));
+            console.log(this.movieObjects);
         }
 
     } // end methods
