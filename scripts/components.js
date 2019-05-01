@@ -15,7 +15,7 @@ Vue.component('book-info', {
 
 
 
-Vue.component('movie-info', {
+Vue.component('movie', {
     props: ['title', 'rating', 'descrip', 'score'],
     template: `<b-row class="movieSug">
 <h2>{{ title }}</h2>
