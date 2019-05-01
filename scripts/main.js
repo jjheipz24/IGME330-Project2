@@ -45,10 +45,8 @@ let app = new Vue({
         movieInfoContents: {
 
         },
-        //holds all of the movies as objects
-        movieObjects: [
-
-        ],
+        //holds every movie object created
+        movieObjects: [],
 
         numResults: "",
 
