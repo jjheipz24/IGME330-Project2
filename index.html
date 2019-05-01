@@ -29,6 +29,7 @@
             </header>
         </b-row>
 
+        <!-- SEARCH AND SELECTION -->
         <b-row class="searchArea">
             <b-col align-h="left">
                 <b-input-group id="searchbar">
@@ -51,10 +52,8 @@
             </b-col>
         </b-row>
 
-        <!--CONSIDER REPLACING WITH ES6 CLASS OR TEMPLATE-->
-        <!--TEMPLATE MIGHT BE EASIER BUT WE NEED TO CREATE ONE CLASS SO IDK-->
+        <!-- BOOK INFO-->
         <b-row>
-
             <b-col id="book">
                 <div v-bind:style="styleLoad" id="loading" class="text-center">
                     <b-spinner variant="primary" style="width: 5rem; height: 5rem;" type="grow" label="Spinning"></b-spinner>
@@ -75,6 +74,7 @@
             <!--<b-col cols="7" id="movies">
                 <movie-info v-bind:titles="movieTitles" v-bind:ratings="ratings" v-bind:descrips="movieDescrips" v-bind:scores="movieScores"></movie-info>
             </b-col>-->
+            <!-- MOVIE INFO -->
             <b-col cols="7" id="movies">
                 <div v-for="movie in movieObjects">
                     <movie v-bind:title="movie.title" v-bind:rating="movie.rating" v-bind:descrip="movie.descrip" v-bind:score="movie.score"></movie>

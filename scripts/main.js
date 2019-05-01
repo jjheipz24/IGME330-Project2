@@ -90,7 +90,10 @@ let app = new Vue({
     methods: {
         search() {
             //Won't search if nothing added in search bar
-            if (this.bookName == undefined) {
+            if (this.bookName == undefined || this.bookName == null || this.bookName == " " || this.bookName == "") {
+                this.styleLoad.display = 'none';
+                this.styleInfo.display = 'none';
+                this.error.display = 'block'
                 return;
             } else {
                 //set bookname to local storage on search
@@ -121,17 +124,7 @@ let app = new Vue({
                         return response.json();
                     })
                     .then(json => {
-                        //console.log(json);
-
-                        //if json is undefined, show an error message
-                        if (json.docs[0] == undefined) {
-                            this.styleLoad.display = 'none';
-                            this.styleInfo.display = 'none';
-                            this.error.display = 'block';
-
-                            return;
-                        }
-
+                       
                         //thank you Coehl
                         //isolates first result found for book and all of its properties
                         this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
@@ -195,25 +188,37 @@ let app = new Vue({
         },
 
         setContents() {
-            this.bookHeader = this.bookContents.title; //sets book header to actual title of book
-            this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
-            this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
-            this.bookImgLink += this.bookISBN;
-            this.bookImgLink += `-M.jpg`;
-            this.bookDescrip = '';
-            this.bookPic = this.bookImgLink;
-            this.subjects = this.bookContents.subject;
-            //console.log(this.subjects);
-            this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
 
-            this.styleLoad.display = 'none';
-            this.styleInfo.display = 'block';
+            if(this.bookContents !== undefined) {
+                this.bookHeader = this.bookContents.title; //sets book header to actual title of book
+                this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
+                this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
+                this.bookImgLink += this.bookISBN;
+                this.bookImgLink += `-M.jpg`;
+                this.bookDescrip = '';
+                this.bookPic = this.bookImgLink;
+                this.subjects = this.bookContents.subject;
+                //console.log(this.subjects);
+                this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
+    
+                this.error.display = 'none';
+                this.styleLoad.display = 'none';
+                this.styleInfo.display = 'block';
+            } else {
+                this.error.display = 'block';
+                this.styleLoad.display = 'none';
+                this.styleInfo.display = 'none';
+            }
+
         },
 
         setMovieContents() {
             for (let i = 0; i < this.selected; i++) {
-                //call movieInfo for each movie passed back
-                this.movieInfo(this.movieContents[i].Name);
+
+                if(this.movieContents[i] != undefined){
+                    //call movieInfo for each movie passed back if not undefined
+                     this.movieInfo(this.movieContents[i].Name);
+                }
 
                 //reset movieInfoLink
                 this.movieInfoLink = "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&";
