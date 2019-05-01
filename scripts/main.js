@@ -162,6 +162,8 @@ let app = new Vue({
                     this.movieContents = json.Similar.Results;
 
                     this.setMovieContents();
+
+                    this.movieObjects = []; //empties array of movies
                 });
 
         },
