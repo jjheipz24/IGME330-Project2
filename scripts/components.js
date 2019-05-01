@@ -19,8 +19,7 @@ Vue.component('movie', {
     props: ['title', 'rating', 'descrip', 'score'],
     template: `<b-row class="movieSug">
 <h2>{{ title }}</h2>
-<p>{{ rating }}</p>
+<p>{{ rating }}</p><p class="score">{{ score }}</p>
 <p>{{ descrip }}</p>
-<p class="score">{{ score }}</p>
 </b-row>`
 });

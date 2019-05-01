@@ -1,4 +1,5 @@
 
+//array to hold all searches
 let allQueries = [];
 
 // Initialize Firebase
@@ -13,12 +14,15 @@ var config = {
 
 firebase.initializeApp(config);
 
+//grab ref to database
 let database = firebase.database();
 
+//get the search queries and when they're changed 
 let ref = database.ref('searchQuery');
 
 firebase.database().ref("searchQuery").on("value", dataChanged);
 
+//interate through the objects and push each search term into an array
 function dataChanged(data){
     let obj = data.val();
 

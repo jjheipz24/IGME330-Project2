@@ -14,8 +14,10 @@ var config = {
 
 firebase.initializeApp(config);
 
+//grab the firebase
 let database = firebase.database();
 
+//reference search queries on the database
 let ref = database.ref('searchQuery');
 
 //create VUE app
@@ -23,6 +25,12 @@ let app = new Vue({
     el: '#root',
     data: {
         //-------------------BOOK CONTENT----------------
+        //index for array of books
+        index: 0,
+        //whether or not the "wrong book?" button is enabled or not
+        searchGoing: true,
+
+        //book name and information
         bookLink: "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=",
         bookContents: {
 
@@ -60,6 +68,9 @@ let app = new Vue({
         error: {
             display: 'none'
         },
+        movieError: {
+            display: 'none'
+        },
 
         //--------------USER INPUT--------------------
         //this is for how many movie suggestions are shown
@@ -87,13 +98,14 @@ let app = new Vue({
             this.bookName = localStorage.bookName;
         }
     },
+    //methods for the vue app
     methods: {
         search() {
             //Won't search if nothing added in search bar
             if (this.bookName == undefined || this.bookName == null || this.bookName == " " || this.bookName == "") {
                 this.styleLoad.display = 'none';
                 this.styleInfo.display = 'none';
-                this.error.display = 'block'
+                this.error.display = 'block';
                 return;
             } else {
                 //set bookname to local storage on search
@@ -103,7 +115,7 @@ let app = new Vue({
                 this.styleInfo.display = "none";
                 this.styleLoad.display = "block";
 
-                //pushes successful search term to firebase
+                //pushes successful book search to firebase
                 ref.push(this.bookName);
 
                 //Changes input to acceptable form to be searched
@@ -125,18 +137,30 @@ let app = new Vue({
                     })
                     .then(json => {
                        
-                        //thank you Coehl
-                        //isolates first result found for book and all of its properties
-                        this.bookContents = json.docs[0]; //sets contents to docs array in JSON file
+                        //grabs the book number at the index the user wants which is used to cycle through multiple books
+                        if(this.index <= json.docs.length){
 
-                        this.setContents();
+                            //thank you Coehl
+                            //isolates first result found for book and all of its properties
+                            this.bookContents = json.docs[this.index]; //sets contents to docs array in JSON file
 
+                            this.setContents();
+                        
+                        //if the index is greater than how many titles are passed back, start over
+                        } else if (this.index > json.docs.length) {
+                            this.index = 0;
+                        }
+
+                        //enable the "Wrong book?" button once the search is complete and the book list has been retrieved
+                        this.searchGoing = false;
 
                         this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
                         this.movieLink = "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again
                     });
             }
         }, // end search
+
+        //searches for movies similar to the book title and limited by how many the user wants (5/10/15)
         movieSearch(name) {
             //searches for movies similar to the book title and limited by how many the user wants (5/10/15)
             this.movieLink += `q=${name}&type=movies&limit=${this.selected}`;
@@ -152,15 +176,21 @@ let app = new Vue({
                 .then(json => {
 
                     //grab all the similar returned movie objects and sent them to set movie contents
-                    this.movieContents = json.Similar.Results;
-
-                    this.setMovieContents();
-
-                    this.movieObjects = []; //empties array of movies
+                    //if there are no movies returned, tell the user there's no movies
+                    if(json.Similar.Results == 0) {
+                        this.movieError.display = 'block';
+                    } else {
+                        this.movieContents = json.Similar.Results;
+    
+                        this.setMovieContents();
+    
+                        this.movieObjects = []; //empties array of movies
+                    }
                 });
 
         },
 
+        //grab the specific info for each movie
         movieInfo(name) {
 
             //search for that specific movie name
@@ -187,12 +217,21 @@ let app = new Vue({
                 });
         },
 
+        //set the book information and grab the cover, hide the error message and spinner and show the book info
         setContents() {
 
-            if(this.bookContents !== undefined) {
+            if(this.bookContents != undefined) {
                 this.bookHeader = this.bookContents.title; //sets book header to actual title of book
-                this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
-                this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
+
+                //these two throw errors sometimes to they get to be in if statements
+                if(this.bookContents.author_name != undefined) {
+                    this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
+                }
+ 
+                if(this.bookContents.isbn != undefined) {
+                    this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
+                }
+
                 this.bookImgLink += this.bookISBN;
                 this.bookImgLink += `-M.jpg`;
                 this.bookDescrip = '';
@@ -204,6 +243,8 @@ let app = new Vue({
                 this.error.display = 'none';
                 this.styleLoad.display = 'none';
                 this.styleInfo.display = 'block';
+
+            //if this fails, show the error
             } else {
                 this.error.display = 'block';
                 this.styleLoad.display = 'none';
@@ -212,6 +253,7 @@ let app = new Vue({
 
         },
 
+        //adds the movie info to the array, for however many movie the user wants to see
         setMovieContents() {
             for (let i = 0; i < this.selected; i++) {
 
@@ -226,6 +268,7 @@ let app = new Vue({
 
         },
 
+        //grabs the plot, rating, description, and audience scores for each movie in the array
         getMovieInfo() {
             let check = this.movieInfoContents.Response;
 
@@ -242,6 +285,13 @@ let app = new Vue({
         AddMovieClass(title, rating, descrip, score) {
             this.movieObjects.push(new Movie(title, rating, descrip, score));
 
+        },
+
+        //rolls through all the returned books to see if we have it
+        tryAgain() {
+            this.index += 1;
+            this.bookName = localStorage.bookName;
+            this.search();
         }
 
     } // end methods

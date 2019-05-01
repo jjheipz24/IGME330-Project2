@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IGME 330: Project 2</title>
 
+    <!--VUE AND BOOTSTRAP-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Add this to <head> -->
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
@@ -16,6 +17,7 @@
     <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
+    <!-- OUR STYLESHEET AND WEB FONT-->
     <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -31,6 +33,7 @@
 
         <!-- SEARCH AND SELECTION -->
         <b-row class="searchArea">
+            <!--search input field + search button-->
             <b-col align-h="left">
                 <b-input-group id="searchbar">
                     <b-form-input id="searchInput" placeholder="Enter book title here..." v-model.trim="bookName" v-model.trim="query"></b-form-input>
@@ -41,6 +44,7 @@
                 </b-input-group>
             </b-col>
 
+            <!-- selection dropdown to pick how many movie suggestions user wants-->
             <b-col cols="1" align-h="right" id="limitSel">
                 <b-input-group>
                     <b-input-group-prepend>
@@ -55,44 +59,62 @@
         <!-- BOOK INFO-->
         <b-row>
             <b-col id="book">
+
+                <!-- loading spinner that spins on search -->
                 <div v-bind:style="styleLoad" id="loading" class="text-center">
                     <b-spinner variant="primary" style="width: 5rem; height: 5rem;" type="grow" label="Spinning"></b-spinner>
                 </div>
 
-                <div v-bind:style="error" id="danger" class="text-center">
+                <!-- error message if a book can't be found-->
+                <div v-bind:style="error" class="text-center">
                     <b-alert show variant="danger">Sorry, we were unable to find your book. Please make sure you've entered the title correctly and try again.</b-alert>
                 </div>
 
+                <!-- actual book info component-->
                 <div id="bookHTML" v-bind:style="styleInfo">
                     <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
                     <book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
-                    <!--<p>{{contents.author_name}}</p>-->
+                </div>
+                
+                <!--button to cycle through book results to find the right one-->
+                <div id="control2" class="text-center">
+                    <b-button variant="primary" id="retry" :disabled="searchGoing" @click="tryAgain">Wrong Book?</b-button>
+                    <p id="disclaimer">Due to the databases being used for this project, we may not be able to access every book or even some
+                        common books. 
+                    </p>
                 </div>
 
             </b-col>
 
-            <!--<b-col cols="7" id="movies">
-                <movie-info v-bind:titles="movieTitles" v-bind:ratings="ratings" v-bind:descrips="movieDescrips" v-bind:scores="movieScores"></movie-info>
-            </b-col>-->
             <!-- MOVIE INFO -->
             <b-col cols="7" id="movies">
+
+                <!--movie component-->
                 <div v-for="movie in movieObjects">
                     <movie v-bind:title="movie.title" v-bind:rating="movie.rating" v-bind:descrip="movie.descrip" v-bind:score="movie.score"></movie>
                 </div>
+
+                <!--can't find any movies error message-->
+                <div v-bind:style="movieError" class="text-center">
+                    <b-alert show variant="danger">Obscure taste? Or just our database? <br> Either way, there are no suggestions for this book, sorry!</b-alert>
+                </div>
+
             </b-col>
 
         </b-row>
 
+        <!--its us-->
         <b-row>
             <footer>
                 <p>Created by Jin Jin Heipler and Julia Hotaling &copy; 2019</p>
             </footer>
         </b-row>
 
-    </b-container fluid>
+    </b-container>
 
 
 
+    <!--main and component scripts-->
     <script src="scripts/components.js"></script>
     <script src="scripts/movie.js"></script>
 

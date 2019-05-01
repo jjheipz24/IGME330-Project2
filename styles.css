@@ -69,6 +69,16 @@ h3 {
     margin-right: 5px;
 }
 
+#control2 {
+    margin: 25px 10px 15px 10px;
+}
+
+#disclaimer {
+    margin: 10px 10px 10px 10px;
+    font-size: 12px;
+    color: #C0C0C0;
+}
+
 #limit{
     width: 100px;
 }
