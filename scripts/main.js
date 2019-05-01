@@ -57,6 +57,7 @@ let app = new Vue({
         movieObjects: [],
 
         numResults: "",
+        moviesFound: true,
 
         //changes the style of the book field, spinner, and error messages when needed throughout the program
         styleLoad: {
@@ -136,17 +137,17 @@ let app = new Vue({
                         return response.json();
                     })
                     .then(json => {
-                       
+
                         //grabs the book number at the index the user wants which is used to cycle through multiple books
-                        if(this.index <= json.docs.length){
+                        if (this.index <= json.docs.length) {
 
                             //thank you Coehl
                             //isolates first result found for book and all of its properties
                             this.bookContents = json.docs[this.index]; //sets contents to docs array in JSON file
 
                             this.setContents();
-                        
-                        //if the index is greater than how many titles are passed back, start over
+
+                            //if the index is greater than how many titles are passed back, start over
                         } else if (this.index > json.docs.length) {
                             this.index = 0;
                         }
@@ -177,13 +178,20 @@ let app = new Vue({
 
                     //grab all the similar returned movie objects and sent them to set movie contents
                     //if there are no movies returned, tell the user there's no movies
-                    if(json.Similar.Results == 0) {
+                    if (json.Similar.Results == 0) {
                         this.movieError.display = 'block';
+                        this.moviesFound = false;
+
+                        //resets movie searches for new search and clears previous movie suggestions
+                        this.movieInfoLink = "http://www.omdbapi.com/?apikey=1c34b0e6&" //resets link to search again
+                        this.movieObjects = [];
+
                     } else {
+                        this.moviesFound = true;
                         this.movieContents = json.Similar.Results;
-    
+
                         this.setMovieContents();
-    
+
                         this.movieObjects = []; //empties array of movies
                     }
                 });
@@ -220,15 +228,15 @@ let app = new Vue({
         //set the book information and grab the cover, hide the error message and spinner and show the book info
         setContents() {
 
-            if(this.bookContents != undefined) {
+            if (this.bookContents != undefined) {
                 this.bookHeader = this.bookContents.title; //sets book header to actual title of book
 
                 //these two throw errors sometimes to they get to be in if statements
-                if(this.bookContents.author_name != undefined) {
+                if (this.bookContents.author_name != undefined) {
                     this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
                 }
- 
-                if(this.bookContents.isbn != undefined) {
+
+                if (this.bookContents.isbn != undefined) {
                     this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
                 }
 
@@ -239,12 +247,12 @@ let app = new Vue({
                 this.subjects = this.bookContents.subject;
                 //console.log(this.subjects);
                 this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
-    
+
                 this.error.display = 'none';
                 this.styleLoad.display = 'none';
                 this.styleInfo.display = 'block';
 
-            //if this fails, show the error
+                //if this fails, show the error
             } else {
                 this.error.display = 'block';
                 this.styleLoad.display = 'none';
@@ -257,9 +265,9 @@ let app = new Vue({
         setMovieContents() {
             for (let i = 0; i < this.selected; i++) {
 
-                if(this.movieContents[i] != undefined){
+                if (this.movieContents[i] != undefined) {
                     //call movieInfo for each movie passed back if not undefined
-                     this.movieInfo(this.movieContents[i].Name);
+                    this.movieInfo(this.movieContents[i].Name);
                 }
 
                 //reset movieInfoLink
