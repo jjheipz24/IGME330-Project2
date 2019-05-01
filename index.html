@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">    
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
@@ -72,8 +72,13 @@
 
             </b-col>
 
-            <b-col cols="7" id="movies">
+            <!--<b-col cols="7" id="movies">
                 <movie-info v-bind:titles="movieTitles" v-bind:ratings="ratings" v-bind:descrips="movieDescrips" v-bind:scores="movieScores"></movie-info>
+            </b-col>-->
+            <b-col cols="7" id="movies">
+                <div v-for="movie in movies" v-bind:movies="movieObjects">
+                    <movie v-bind:title="movie.title" v-bind:rating="movie.rating" v-bind:descrip="movie.descrip" v-bind:score="movie.score"></movie>
+                </div>
             </b-col>
 
         </b-row>
@@ -86,7 +91,7 @@
 
     </b-container fluid>
 
-    
+
 
     <script src="scripts/components.js"></script>
     <script src="scripts/movie.js"></script>
@@ -94,7 +99,7 @@
     <!--FIREBASE SERVER-->
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="scripts/main.js"></script>
- 
+
 </body>
 
 </html>
