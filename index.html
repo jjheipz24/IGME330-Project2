@@ -76,7 +76,7 @@
                 <movie-info v-bind:titles="movieTitles" v-bind:ratings="ratings" v-bind:descrips="movieDescrips" v-bind:scores="movieScores"></movie-info>
             </b-col>-->
             <b-col cols="7" id="movies">
-                <div v-for="movie in movies" v-bind:movies="movieObjects">
+                <div v-for="movie in movieObjects">
                     <movie v-bind:title="movie.title" v-bind:rating="movie.rating" v-bind:descrip="movie.descrip" v-bind:score="movie.score"></movie>
                 </div>
             </b-col>
