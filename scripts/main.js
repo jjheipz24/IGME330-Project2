@@ -245,7 +245,7 @@ let app = new Vue({
         //creates a movie object for each suggested movie;
         AddMovieClass(title, rating, descrip, score) {
             this.movieObjects.push(new Movie(title, rating, descrip, score));
-            console.log(this.movieObjects);
+
         }
 
     } // end methods
