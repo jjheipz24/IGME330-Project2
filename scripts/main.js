@@ -42,14 +42,13 @@ let app = new Vue({
         },
         movieLink: "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&", //grabs movies similar to book 
         movieInfoLink: "https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=1c34b0e6&", //grabs the info for each similar movie
-        movieTitles: [],
-        ratings: [],
-        movieDescrips: [],
-        movieScores: [],
         movieInfoContents: {
 
         },
-        movieObjects: [],
+        //holds all of the movies as objects
+        movieObjects: [
+
+        ],
 
         numResults: "",
 
@@ -229,14 +228,6 @@ let app = new Vue({
             //thank you Coehl ^
             if (check != "False") {
 
-                //push movie info into the title, ratings, plot, etc arrays
-                //then add this to the movie class
-                /*this.movieTitles.push(this.movieInfoContents.Title)
-
-
-                this.ratings.push(this.movieInfoContents.Rated);
-                this.movieDescrips.push(this.movieInfoContents.Plot);
-                this.movieScores.push(this.movieInfoContents.Ratings[0].Value); */
                 this.AddMovieClass(this.movieInfoContents.Title, this.movieInfoContents.Rated, this.movieInfoContents.Plot, this.movieInfoContents.Ratings[0].Value);
 
             }
