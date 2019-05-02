@@ -75,12 +75,12 @@
                     <book-title v-bind:title="bookHeader" v-bind:imgLink="bookPic"></book-title>
                     <book-info v-bind:author="bookAuthor" v-bind:descrip="bookDescrip"></book-info>
                 </div>
-                
+
                 <!--button to cycle through book results to find the right one-->
                 <div id="control2" class="text-center">
                     <b-button variant="primary" id="retry" :disabled="searchGoing" @click="tryAgain">Wrong Book?</b-button>
                     <p id="disclaimer">Due to the databases being used for this project, we may not be able to access every book or even some
-                        common books. 
+                        common books.
                     </p>
                 </div>
 
@@ -95,7 +95,7 @@
                 </div>
 
                 <!--can't find any movies error message-->
-                <div v-bind:style="movieError" class="text-center">
+                <div v-if="!moviesFound" v-bind:style="movieError" class="text-center">
                     <b-alert show variant="danger">Obscure taste? Or just our database? <br> Either way, there are no suggestions for this book, sorry!</b-alert>
                 </div>
 
