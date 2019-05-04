@@ -110,6 +110,7 @@ let app = new Vue({
                 this.error.display = 'block';
                 //return;
             } else {
+
                 //set bookname to local storage on search
                 localStorage.bookName = this.bookName;
 
@@ -247,17 +248,22 @@ let app = new Vue({
                     this.bookAuthor = this.bookContents.author_name[0]; //sets bookAuthor to the item in [0] of author_names array
                 }
 
-                if (this.bookContents.isbn != undefined) {
+                if (this.bookContents.isbn == undefined) {
+                    this.bookPic = ' ';
+
+                } else {
                     this.bookISBN = this.bookContents.isbn[0]; //sets isbn of book
+                    this.bookImgLink += this.bookISBN;
+                    this.bookImgLink += `-M.jpg`;
+                    this.bookDescrip = '';
+                    this.bookPic = this.bookImgLink;
                 }
 
-                this.bookImgLink += this.bookISBN;
-                this.bookImgLink += `-M.jpg`;
-                this.bookDescrip = '';
-                this.bookPic = this.bookImgLink;
+
                 this.subjects = this.bookContents.subject;
-                //console.log(this.subjects);
-                this.bookImgLink = "http://covers.openlibrary.org/b/isbn/"; //resets image link to get new image in another search
+
+                this.bookImgLink = "http://covers.openlibrary.org/b/isbn/";
+                //resets image link to get new image in another search
 
                 this.error.display = 'none';
                 this.styleLoad.display = 'none';
