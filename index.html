@@ -66,7 +66,7 @@
                 </div>
 
                 <!-- error message if a book can't be found-->
-                <div v-bind:style="error" class="text-center">
+                <div v-if="!bookFound" v-bind:style="error" class="text-center">
                     <b-alert show variant="danger">Sorry, we were unable to find your book. Please make sure you've entered the title correctly and try again.</b-alert>
                 </div>
 

@@ -43,6 +43,7 @@ let app = new Vue({
         bookISBN: "",
         bookPic: " ",
         subjects: [],
+        bookFound: true,
 
         //--------------------MOVIE CONTENT-----------------
         movieContents: {
@@ -137,26 +138,31 @@ let app = new Vue({
                         return response.json();
                     })
                     .then(json => {
+                        if (json.docs.length == 0) {
+                            this.error.display = "block";
+                            this.bookFound = false;
+                        } else {
+                            this.bookFound = true;
+                            //grabs the book number at the index the user wants which is used to cycle through multiple books
+                            if (this.index <= json.docs.length) {
+                                //thank you Coehl
+                                //isolates first result found for book and all of its properties
+                                this.bookContents = json.docs[this.index]; //sets contents to docs array in JSON file
 
-                        //grabs the book number at the index the user wants which is used to cycle through multiple books
-                        if (this.index <= json.docs.length) {
+                                this.setContents();
 
-                            //thank you Coehl
-                            //isolates first result found for book and all of its properties
-                            this.bookContents = json.docs[this.index]; //sets contents to docs array in JSON file
+                                //if the index is greater than how many titles are passed back, start over
+                            } else if (this.index > json.docs.length) {
+                                this.index = 0;
+                            }
 
-                            this.setContents();
+                            //enable the "Wrong book?" button once the search is complete and the book list has been retrieved
+                            this.searchGoing = false;
 
-                            //if the index is greater than how many titles are passed back, start over
-                        } else if (this.index > json.docs.length) {
-                            this.index = 0;
+                            this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+                            this.movieLink = "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again
                         }
 
-                        //enable the "Wrong book?" button once the search is complete and the book list has been retrieved
-                        this.searchGoing = false;
-
-                        this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
-                        this.movieLink = "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again
                     });
             }
         }, // end search
