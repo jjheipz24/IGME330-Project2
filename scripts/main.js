@@ -108,7 +108,7 @@ let app = new Vue({
                 this.styleLoad.display = 'none';
                 this.styleInfo.display = 'none';
                 this.error.display = 'block';
-                return;
+                //return;
             } else {
                 //set bookname to local storage on search
                 localStorage.bookName = this.bookName;
@@ -138,8 +138,13 @@ let app = new Vue({
                         return response.json();
                     })
                     .then(json => {
+                        //if it can't find the book, an error message will be shown and the links will be reset for a new search
                         if (json.docs.length == 0) {
-                            this.error.display = "block";
+                            this.error.display = 'block';
+                            this.styleLoad.display = 'none';
+                            this.styleInfo.display = 'none';
+                            this.bookLink = "https://cors-anywhere.herokuapp.com/http://openlibrary.org/search.json?title=" //resets link to search again
+                            this.movieLink = "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=334818-IGME230P-KCLLAGPP&" //resets link to search again
                             this.bookFound = false;
                         } else {
                             this.bookFound = true;
@@ -258,11 +263,6 @@ let app = new Vue({
                 this.styleLoad.display = 'none';
                 this.styleInfo.display = 'block';
 
-                //if this fails, show the error
-            } else {
-                this.error.display = 'block';
-                this.styleLoad.display = 'none';
-                this.styleInfo.display = 'none';
             }
 
         },
