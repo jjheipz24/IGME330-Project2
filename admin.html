@@ -33,8 +33,8 @@
                 <h1>Recent Searches</h1>
             </header>
         </b-row>
+        <b-row id="admin-home">
 
-        <div class="row">
             <b-col>
                 <div class="col-md-2">
                     <table class="table table-striped table-sm">
@@ -55,14 +55,12 @@
                 </div>
             </b-col>
 
-        </div> <!-- end row -->
-
-
-        <b-col>
-            <section>
-                <canvas width="650" height="550"></canvas>
-            </section>
-        </b-col>
+            <b-col cols="8" id="word-cloud">
+                <section>
+                    <canvas width="1000" height="850"></canvas>
+                </section>
+            </b-col>
+        </b-row>
     </b-container>
 
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
