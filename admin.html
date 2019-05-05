@@ -33,26 +33,28 @@
                 <h1>Recent Searches</h1>
             </header>
         </b-row>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <!--<th scope="col">#</th>-->
-                            <th scope="col">Search</th>
-                            <th scope="col"># of times searched</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-<!--
-<tr v-for="item in filteredSearches">
-    <td>{{item}}</td>
-</tr>
--->
 
-                    </tbody>
-                </table>
-            </div>
+        <div class="row">
+            <b-col>
+                <div class="col-md-2">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <!--<th scope="col">#</th>-->
+                                <th scope="col"># of Each Search</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr v-for="item in finalArray">
+                                <td>{{item}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </b-col>
+
         </div> <!-- end row -->
 
         <!--do what you want for html/css, I have each search pushed into an array in firebase.js so just figure out a way to display it-->

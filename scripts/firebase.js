@@ -69,6 +69,7 @@ let app = new Vue({
         counts: {}, //object to add searches and counter
         filteredSearches: [], //array of search results without repeats
         numSearches: [], //array to hold the amount each search appeared
+        finalArray: [], //array to hold the final formatted search results
         // Initialize Firebase
         config: {
             apiKey: "AIzaSyB9rzeXc4ZlRJDIAXSJfxYp4ObIPRLawa8",
@@ -81,7 +82,8 @@ let app = new Vue({
         database: '',
         ref: '',
         obj: '',
-        row: ''
+        row: '',
+        line: ''
     },
     mounted() {
         this.startUp();
@@ -117,13 +119,17 @@ let app = new Vue({
 
             this.filteredSearches = Object.keys(this.counts); //array of all of the searches (no repeats)
 
-            console.log(this.filteredSearches);
             for (let k of this.filteredSearches) {
-                console.log(`${k} : ${this.counts[k]}`);
                 this.numSearches.push(this.counts[k]);
             }
-
-            console.log(this.numSearches);
+            this.formatArray();
+        },
+        //Takes the two arrays and formats the data together to get added to a final array
+        formatArray() {
+            for (let i = 0; i < this.filteredSearches.length; i++) {
+                this.line = `${this.filteredSearches[i]}: ${this.numSearches[i]}`;
+                this.finalArray.push(this.line);
+            }
         }
 
     }
