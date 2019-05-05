@@ -96,6 +96,7 @@ let app = new Vue({
 
     },
     methods: {
+        //Initializes firebase
         startUp() {
             firebase.initializeApp(this.config);
             this.database = firebase.database();
@@ -107,8 +108,8 @@ let app = new Vue({
 
             for (let key in this.obj) { // use for..in to interate through object keys
                 this.row = this.obj[key];
-                this.row = this.row.toLowerCase();
-                this.allQueries.push(`${this.row}`);
+                this.row = this.row.toLowerCase(); //makes all searches look uniform
+                this.allQueries.push(`${this.row}`); //adds each search to an array
             }
 
             this.getCount(this.allQueries);
@@ -125,9 +126,8 @@ let app = new Vue({
             }
 
             this.filteredSearches = Object.keys(this.counts); //array of all of the searches (no repeats)
-
             for (let k of this.filteredSearches) {
-                this.numSearches.push(this.counts[k]);
+                this.numSearches.push(this.counts[k]); //pushes every number associated with each search to its own array
             }
             this.formatArray();
         },
@@ -144,7 +144,7 @@ let app = new Vue({
         wordCloudFormat() {
             this.canvas = document.querySelector("canvas");
             this.ctx = this.canvas.getContext("2d");
-            this.filteredSearches.sort(this.sortNumber);
+            this.filteredSearches.sort(this.sortNumber); //sorts each number in ascending order
 
             //changes font size based on the counts value
             //writes each word in a random location on canvas
@@ -154,7 +154,7 @@ let app = new Vue({
                 } else {
                     this.fSize = this.counts[this.filteredSearches[i]] * 2.5;
                 }
-
+                //-----------------------Styling for each word in word cloud------
                 this.ctx.font = `${this.fSize}pt Questrial`;
                 this.ctx.fillStyle = this.getRandomColor();
                 this.ctx.textAlign = 'center';
