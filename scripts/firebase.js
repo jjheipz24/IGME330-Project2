@@ -65,6 +65,7 @@ function getCount(original) {
 let app = new Vue({
     el: '#admin',
     data: {
+        //-------------TABLE DATA--------------------
         allQueries: [], //array to hold all searches
         counts: {}, //object to add searches and counter
         filteredSearches: [], //array of search results without repeats
@@ -83,10 +84,16 @@ let app = new Vue({
         ref: '',
         obj: '',
         row: '',
-        line: ''
+        line: '',
+
+        //----------------------WORD CLOUD--------------------
+        canvas: ' ',
+        ctx: '',
+        fSize: ' '
     },
     mounted() {
         this.startUp();
+
     },
     methods: {
         startUp() {
@@ -130,8 +137,36 @@ let app = new Vue({
                 this.line = `${this.filteredSearches[i]}: ${this.numSearches[i]}`;
                 this.finalArray.push(this.line);
             }
-        }
 
+            this.wordCloudFormat();
+        },
+        //----------------------WORD CLOUD------------------------
+        wordCloudFormat() {
+            this.canvas = document.querySelector("canvas");
+            this.ctx = this.canvas.getContext("2d");
+            this.filteredSearches.sort(this.sortNumber);
+
+            //changes font size based on the counts value
+            //writes each word in a random location on canvas
+            for (let i = 0; i < this.numSearches.length; i++) {
+                this.fSize = this.counts[this.filteredSearches[i]] * 2;
+                this.ctx.font = `${this.fSize}pt Questrial`;
+                this.ctx.fillStyle = `rgb(160 - (i * 2), 210 - (i * 2), 241)`;
+                this.ctx.textAlign = 'center';
+                this.ctx.testBaseline = 'middle';
+                this.ctx.fillText(this.filteredSearches[i], this.getRandom(0, 600), this.getRandom(0, 500));
+            }
+
+
+        },
+        sortNumber(a, b) {
+            return a - b;
+        },
+        getRandom(min, max) {
+            let range = (max - min) + 1
+            let randNum = Math.random() * range;
+            return randNum;
+        }
     }
 
 });
