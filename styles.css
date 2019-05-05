@@ -1,4 +1,3 @@
-
 header {
     background: #0599F1;
     width: 100vw;
@@ -51,7 +50,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Questrial', sans-serif; 
+    font-family: 'Questrial', sans-serif;
 }
 
 h3 {
@@ -79,7 +78,7 @@ h3 {
     color: #C0C0C0;
 }
 
-#limit{
+#limit {
     width: 100px;
 }
 
@@ -95,7 +94,7 @@ h3 {
 
 #movies::-webkit-scrollbar-track {
     border: 2px solid #0599F1;
-    background-color:lightgray;
+    background-color: lightgray;
     border-radius: 10px;
 }
 
@@ -151,3 +150,11 @@ h3 {
     border-left: 2px dotted #0599F1;
 }
 
+#admin-home {
+    padding-top: 50px;
+}
+
+#word-cloud {
+    border-left: 2px dotted #0599F1;
+    padding-left: 2em;
+}
