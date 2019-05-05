@@ -149,12 +149,17 @@ let app = new Vue({
             //changes font size based on the counts value
             //writes each word in a random location on canvas
             for (let i = 0; i < this.numSearches.length; i++) {
-                this.fSize = this.counts[this.filteredSearches[i]] * 2;
+                if (this.counts[this.filteredSearches[i]] < 5) {
+                    this.fSize = 10;
+                } else {
+                    this.fSize = this.counts[this.filteredSearches[i]] * 2.5;
+                }
+
                 this.ctx.font = `${this.fSize}pt Questrial`;
-                this.ctx.fillStyle = `rgb(160 - (i * 2), 210 - (i * 2), 241)`;
+                this.ctx.fillStyle = this.getRandomColor();
                 this.ctx.textAlign = 'center';
                 this.ctx.testBaseline = 'middle';
-                this.ctx.fillText(this.filteredSearches[i], this.getRandom(0, 600), this.getRandom(0, 500));
+                this.ctx.fillText(this.filteredSearches[i], this.getRandom(0, 900), this.getRandom(0, 700));
             }
 
 
@@ -166,6 +171,17 @@ let app = new Vue({
             let range = (max - min) + 1
             let randNum = Math.random() * range;
             return randNum;
+        },
+        getRandomColor() {
+            let red = this.getRandom(0, 255);
+            let blue = this.getRandom(0, 255);
+            let green = this.getRandom(0, 255);
+            red = Math.round(red);
+            blue = Math.round(blue);
+            green = Math.round(green);
+            let clr = 'rgb(' + red + ',' + green + ',' + blue + ')';
+            return clr;
+
         }
     }
 
